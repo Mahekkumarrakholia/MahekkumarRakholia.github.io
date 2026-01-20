@@ -22,6 +22,11 @@
         </div>
     </nav>
 
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
+        ↑
+    </button>
+
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-text">
@@ -48,7 +53,12 @@
         </div>
 
         <div class="hero-image">
-            <div class ="profile-circle">
+            <div class="profile-circle">
+                <div class="bubble bubble-1"></div>
+                <div class="bubble bubble-2"></div>
+                <div class="bubble bubble-3"></div>
+                <div class="bubble bubble-4"></div>
+                <div class="bubble bubble-5"></div>
                 <img src="./Photo/Photo.jpg" alt="Mahek Rakholia" style="width: 380px; height: 380px; border-radius: 50%; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
             </div>
         </div>
@@ -169,7 +179,7 @@
                 <span class="skill-icon">💻</span>
                 <span class="skill-name">VS Code</span>
             </div>
-                        <div class="skill-item">
+            <div class="skill-item">
                 <span class="skill-icon">🔬</span>
                 <span class="skill-name">Scikit-learn</span>
             </div>
@@ -236,8 +246,8 @@
                 </div>
                 <div class="project-content">
                     <h3>Notification System Design</h3>
-                    <p>Architected a scalable notification delivery system supporting email, in-app, and push notifications. The design uses AWS SQS for message queuing, SNS for event distribution, and a Load Balancer for efficient traffic routing. Implemented dead-letter queues for failed message handling, event-driven processing for user actions, and a decision flow that adapts to user preferences like mute, DND, or mention-based alerts-ensuring reliable, context-aware notifications at scale.</p>
-                    <a href="https://drive.google.com/drive/folders/1Xl49YQ342kZe5KqxVpy7i9egSQII4T-j" class="project-link">View Project ↗</a>
+                    <p>Architected a scalable notification delivery system supporting email, in-app, and push notifications. The design uses AWS SQS for message queuing, SNS for event distribution, and a Load Balancer for efficient traffic routing.</p>
+                    <a href="https://drive.google.com/drive/u/0/folders/1CXTXwcoUAH1q2dV13KRJR3WYnUpD0lTL" class="project-link">View Project ↗</a>
                 </div>
             </div>
             
@@ -246,8 +256,8 @@
                     <img src="./Projects/CulinaryKings.jpeg" alt="Notification System Design" style="width: 100%; height: 100%; object-fit: fill;">
                 </div>
                 <div class="project-content">
-                    <h3>CulinaryKings - Recipe Management Web Application (.NET Framework)</h3>
-                    <p>A full-stack food and recipe management web application developed using the .NET Framework. The platform supports secure user registration and authentication, complete CRUD functionality for recipes, ingredients, and categories, image uploads, advanced search and filtering, recipe reporting, email messaging, and print-ready recipe views. Built with C# for backend development and JavaScript, HTML, and CSS for a responsive and user-friendly frontend.</p>
+                    <h3>CulinaryKings - Recipe Management Web Application</h3>
+                    <p>A full-stack food and recipe management web application developed using the .NET Framework. The platform supports secure user registration and authentication, complete CRUD functionality for recipes, ingredients, and categories.</p>
                     <a href="https://github.com/Mahekkumarrakholia/CulinaryKings.git" class="project-link">View Project ↗</a>
                 </div>
             </div>
@@ -258,7 +268,7 @@
                 </div>
                 <div class="project-content">
                     <h3>Customer Churn Prediction System</h3>
-                    <p>Built an end-to-end machine learning solution predicting customer churn with 84% accuracy, preprocessing 5,000+ records including feature engineering and categorical encoding. Compared classification algorithms (Logistic Regression, Random Forest, Decision Trees) and conducted feature importance analysis identifying key churn indicators. Created data visualizations communicating model insights to non-technical audiences and developed an automated pipeline for model retraining.</p>
+                    <p>Built an end-to-end machine learning solution predicting customer churn with 84% accuracy, preprocessing 5,000+ records including feature engineering and categorical encoding.</p>
                     <a href="https://github.com/Mahekkumarrakholia/Customer-Churn-Prediction-System.git" class="project-link">View Project ↗</a>
                 </div>
             </div>
@@ -305,39 +315,51 @@
     </footer>
 
     <script>
+        // Mobile menu toggle
         function toggleMenu() {
             document.getElementById('menu').classList.toggle('active');
         }
 
-            function filterProjects(category) {
-        const cards = document.querySelectorAll('.project-card');
-        const buttons = document.querySelectorAll('.filter-btn');
-        
-        // Update active button
-        buttons.forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
-        
-        // Filter cards
-        cards.forEach(card => {
-            if (category === 'all') {
-                card.classList.remove('hidden');
+        // Scroll to top functionality
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('show');
             } else {
-                if (card.getAttribute('data-category') === category) {
-                    card.classList.remove('hidden');
-                } else {
-                    card.classList.add('hidden');
-                }
+                scrollToTopBtn.classList.remove('show');
             }
         });
-    }
 
-
-        function handleSubmit(e) {
-            e.preventDefault();
-            alert('Thank you for your message! I will get back to you soon.');
-            e.target.reset();
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
 
+        // Project filtering
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.project-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.classList.remove('hidden');
+                } else {
+                    if (card.getAttribute('data-category') === category) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -350,3 +372,4 @@
         });
     </script>
 </body>
+</html>
